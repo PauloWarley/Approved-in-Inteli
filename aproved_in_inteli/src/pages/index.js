@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Input from '../components/InputMask'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const App = () => {
   const [number, setNumber] = useState('')
@@ -12,6 +13,10 @@ const App = () => {
   }
 
   )
+
+  function sendPhone(phone){
+    axios.post('/api/savenumber', {number: phone})
+  }
 
   return (
     <>
@@ -23,7 +28,7 @@ const App = () => {
     </Head>
     <div className={styles.root}>
       <header className={styles.cabecalho}>
-        <p className={styles.cabecalho_title}>Olá Candidato (a), <br/><br/> <strong>seja bem-vindo (a)</strong> à sua página de resultado do Processo Seletivo Inteli 2023.1</p>
+        {/* <p className={styles.cabecalho_title}>Olá Candidato (a), <br/><br/> <strong>seja bem-vindo (a)</strong> à sua página de resultado do Processo Seletivo Inteli 2023.1</p> */}
       </header>
       <main className={styles.content}>
         <section className={styles.content_main}>
@@ -37,7 +42,7 @@ const App = () => {
             <div className={styles.section_quote}>Boa sorte (controla a ansiedade) e que Ada Lovelace esteja com você :)</div>
         </div>
         <div className={styles.section_button}>
-            <button className={styles.section_button}>Enviar meu número</button>
+            <button className={styles.section_button} onClick={() => sendPhone(number)} >Enviar meu número</button>
         </div>
       </section>  
     </div>

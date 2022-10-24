@@ -16,14 +16,14 @@ class WhatsAppSender():
   
   def send(self, num='5531996055862', msg = ''):
 
-    userdatadir = '/userData'
+    userdatadir = '/userData2'
     chromeOptions = webdriver.ChromeOptions()
-    chromeOptions.add_experimental_option('excludeSwitches', ['disable-logging'])
-    chromeOptions.add_argument('log-level=3')
+    # chromeOptions.add_experimental_option('excludeSwitches', ['disable-logging'])
+    # chromeOptions.add_argument('log-level=3')
     # chromeOptions.add_argument("--headless") 
     # chromeOptions.add_argument('--enable-gpu')
 
-    chromeOptions.add_argument(f"--user-data-dir={userdatadir}") #Path to your chrome profile
+    chromeOptions.add_argument(f"--user-data-dir={userdatadir}")
     self.driver = webdriver.Chrome(options=chromeOptions) 
 
     self.driver.set_window_size(1221, 817)
