@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "create-next-app": "^12.3.1"
+    "create-next-app": "^12.3.1",
+    "react-input-mask": "^2.0.4"
   }
 }
