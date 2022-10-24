@@ -5,7 +5,7 @@ const App = async (req, res) => {
   var phone = req.body.number
 
 
-  var phoneFormated = phone.replace('(', '').replace(')', '').replace(' ', '').replace('-', '')
+  var phoneFormated = '55' + phone.replace('(', '').replace(')', '').replace(' ', '').replace('-', '')
 
   var phones = await client.phones.findFirst({
     where: {

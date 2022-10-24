@@ -4,6 +4,7 @@ import styles from '../styles/Home.module.css'
 import Input from '../components/InputMask'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import background from '../images/background.png'
 
 const App = () => {
   const [number, setNumber] = useState('')
@@ -26,9 +27,11 @@ const App = () => {
       <meta charSet="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
+
     <div className={styles.root}>
       <header className={styles.cabecalho}>
-        <p className={styles.cabecalho_title}>Olá Candidato (a), <br/><br/> <strong>seja bem-vindo (a)</strong> à sua página de resultado do Processo Seletivo Inteli 2023.1</p>
+        <p className={styles.cabecalho_title}>Olá Candidato (a), <br/><br/> <strong>Seja bem-vindo (a)</strong> 
+         à sua página de resultado do Processo Seletivo Inteli 2023.1</p>
       </header>
       <main className={styles.content}>
         <section className={styles.content_main}>
@@ -46,6 +49,15 @@ const App = () => {
         </div>
       </section>  
     </div>
+    <div className={styles.background}>
+        <Image src={background} />
+        <div style={{ color: "white", position: "relative", bottom: '30px', 
+          left: '5px',
+          fontFamily:"'Courier New', Courier, monospace;"}}>
+          Desenvelopado by: Paulo Warley and Keylla
+        </div>
+    </div>
+
     </>
   )
 }
