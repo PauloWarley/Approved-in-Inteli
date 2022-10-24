@@ -28,7 +28,7 @@ const App = () => {
     </Head>
     <div className={styles.root}>
       <header className={styles.cabecalho}>
-        {/* <p className={styles.cabecalho_title}>Olá Candidato (a), <br/><br/> <strong>seja bem-vindo (a)</strong> à sua página de resultado do Processo Seletivo Inteli 2023.1</p> */}
+        <p className={styles.cabecalho_title}>Olá Candidato (a), <br/><br/> <strong>seja bem-vindo (a)</strong> à sua página de resultado do Processo Seletivo Inteli 2023.1</p>
       </header>
       <main className={styles.content}>
         <section className={styles.content_main}>

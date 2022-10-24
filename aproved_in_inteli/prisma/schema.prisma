@@ -1,11 +1,185 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model phones {
+  id           Int      @id @default(autoincrement())
+  phone        String
+}
+
+model couriers {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String
+  cnpj         String
+  ie           String
+  street       String
+  number       String
+  complement   String
+  neighborhood String
+  city         String
+  state        String
+  zipcode      String
+  phone        String
+  cellphone    String
+  observation  String
+  contact      String
+  collect      Boolean
+  payment      String
+  createdAt    DateTime @default(now())
+  changedAt    DateTime @default(now())
+}
+
+model couriers_parameter {
+  id         Int @id @default(autoincrement())
+  courier_id Int
+}
+
+model couriers_table {
+  id           Int     @id @default(autoincrement())
+  courier_id   Int
+  origem       String? @db.VarChar(45)
+  destino      String
+  capital      Boolean
+  interior     Boolean
+  porcent_nf   String
+  frete_minimo String
+  gatilho      String
+  pedagio      String
+  cubagem      Float?
+  prazo        String? @db.VarChar(2)
+}
+
+model couriers_table_state {
+  id         Int      @id @default(autoincrement())
+  courier_id Int
+  collect    Boolean
+  delivery   Boolean
+  AC         Boolean
+  AL         Boolean
+  AM         Boolean
+  AP         Boolean
+  BA         Boolean
+  CE         Boolean
+  DF         Boolean
+  ES         Boolean
+  GO         Boolean
+  MA         Boolean
+  MG         Boolean
+  MS         Boolean
+  MT         Boolean
+  PA         Boolean
+  PB         Boolean
+  PE         Boolean
+  PI         Boolean
+  PR         Boolean
+  RJ         Boolean
+  RN         Boolean
+  RO         Boolean
+  RR         Boolean
+  RS         Boolean
+  SC         Boolean
+  SE         Boolean
+  SP         Boolean
+  TO         Boolean
+  changedAt  DateTime @default(now())
+  createdAt  DateTime @default(now())
+}
+
+model couriers_table_weight {
+  id           Int     @id @default(autoincrement())
+  courier_id   Int
+  origem       String? @db.VarChar(45)
+  destino      String
+  capital      Boolean
+  weight_max   Float
+  price        Float
+  max          Boolean
+  surplusvalue Float
+  despacho     Float?
+  gris         Float?
+  grisminimo   Float?
+  pedagio      Float?
+  prazo        Float?
+}
+
+model pricings {
+  id                     Int      @id @default(autoincrement())
+  order_id               Int
+  order_type             String
+  payment_type           String
+  order_value            Float
+  status_id              Int
+  interior_delivery      Boolean
+  capital_delivery       Boolean
+  requester              String
+  client_name            String
+  client_cnpj            String?  @db.VarChar(20)
+  courier_id             Int?
+  branch_id              String   @db.VarChar(12)
+  street_dest            String
+  number_dest            String
+  complement_dest        String
+  neighborhood_dest      String
+  city_dest              String
+  state_dest             String
+  zipcode_dest           String
+  profitability          Float?
+  delivery_time          Float?
+  delivery_cost          Float?
+  measurement_request_id String?  @db.VarChar(36)
+  createdAt              DateTime @default(now())
+  changedAt              DateTime @default(now())
+}
+
+model pricings_sended {
+  id         Int      @id @default(autoincrement())
+  pricing_id Int
+  status_id  Int
+  createdAt  DateTime @default(now())
+  changedAt  DateTime @default(now())
+}
+
+model products {
+  id          Int      @id @default(autoincrement())
+  sku         String
+  description String
+  price       Float
+  width       Float
+  height      Float
+  length      Float
+  weight      Float
+  createdAt   DateTime @default(now())
+  changedAt   DateTime @default(now())
+}
+
+model request_measurements {
+  id              Int      @id @default(autoincrement())
+  request_id      String   @db.VarChar(36)
+  product_id      String   @db.VarChar(20)
+  product_name    String   @db.VarChar(100)
+  width           Float
+  height          Float
+  length          Float
+  weight          Float
+  quantity        Float?
+  order_reference String?  @db.VarChar(20)
+  order_client    String?  @db.VarChar(100)
+  createdAt       DateTime @default(now())
+  changedAt       DateTime @default(now())
+}
+
+model users {
+  id        Int      @id @default(autoincrement())
+  tenant_id Int
+  email     String
+  password  String
+  name      String
+  username  String
+  createdAt DateTime @default(now())
 }

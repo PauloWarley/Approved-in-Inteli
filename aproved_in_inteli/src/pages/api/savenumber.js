@@ -1,12 +1,43 @@
-const App = (req, res) => {
+import { client } from "../../prisma/client"
 
-  console.log(req.body)
+const App = async (req, res) => {
 
   var phone = req.body.number
 
+
   var phoneFormated = phone.replace('(', '').replace(')', '').replace(' ', '').replace('-', '')
 
-  res.status(200).json({phoneFormated})
+  var phones = await client.phones.findFirst({
+    where: {
+      phone: phoneFormated
+    }
+  });
+
+  console.log(phones)
+
+
+  if (phones != null){
+    res.status(201).json({response: 'Response already exists'})
+
+    return;
+  } 
+
+
+  try{
+    await client.phones.create({
+      data: {
+        phone: phoneFormated
+      }
+    });
+    res.status(201).json({phoneFormated})
+
+  }
+
+  catch{
+    res.status(200).json({erro: "erro"})
+
+  }
+
 }
 
 export default App
