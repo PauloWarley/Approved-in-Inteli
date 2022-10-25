@@ -89,8 +89,8 @@ const App = () => {
     <div className={styles.root}>
         <header className={styles.header}>
             <ul>
-            <Link href="/">   <li >  Home </li>  </Link>
-            <Link href="/leaderboard"> <li > Leaderboard </li> </Link> 
+            <li ><Link href="/">     Home   </Link></li>
+            <li ><Link href="/leaderboard"> Leaderboard </Link> </li> 
             </ul>
         </header>
         <hero className={styles.leaderboard}>
