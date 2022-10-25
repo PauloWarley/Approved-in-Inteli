@@ -12,6 +12,12 @@ model phones {
   phone        String
 }
 
+model bets {
+  id           Int      @id @default(autoincrement())
+  nickname     String
+  time         String
+}
+
 model couriers {
   id           Int      @id @default(autoincrement())
   name         String
