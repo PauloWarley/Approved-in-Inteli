@@ -63,9 +63,7 @@ const App = () => {
 
   return (
     <>
-    {/* {modalConclusion()}
-    {modal}
-    <Head>
+    {/* <Head>
       <title>Inteli Resultado</title>
       <meta name="description" content="Acompanhamento de resultados INTELI"/>
       <meta charSet="UTF-8"/>
@@ -89,12 +87,9 @@ const App = () => {
 
     <div className={styles.background}>
         <Image alt='image' src={background} />
-        <div style={{ color: "white", position: "relative", bottom: '30px', 
-          left: '5px',
-          fontFamily:"Courier New"}}>
-          {/* Desenvelopado by: Paulo Warley and Keylla || Aplicativo não possui vínculo com a INTELI! */}
-        </div>
-    </div> */}
+
+    </div> 
+*/}
 
     </>
   )
