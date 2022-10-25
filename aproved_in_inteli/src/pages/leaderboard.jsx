@@ -60,24 +60,10 @@ const App = () => {
     )
   }
 
-  async function sendPhone(phone){
-    var response = await axios.post('/api/savenumber', {number: phone})
-
-    if ( response.status == 200){
-      setModal(modalConclusion(2))
-    }
-    if ( response.status == 201){
-      setModal(modalConclusion(0))
-    }
-    if ( response.status == 203){
-      setModal(modalConclusion(1))
-    }
-
-  }
 
   return (
     <>
-    {/* {modalConclusion()} */}
+    {/* {modalConclusion()}
     {modal}
     <Head>
       <title>Inteli Resultado</title>
@@ -108,7 +94,7 @@ const App = () => {
           fontFamily:"Courier New"}}>
           {/* Desenvelopado by: Paulo Warley and Keylla || Aplicativo não possui vínculo com a INTELI! */}
         </div>
-    </div>
+    </div> */}
 
     </>
   )
