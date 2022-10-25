@@ -118,7 +118,7 @@ const App = () => {
       </section>  
     </div>
     <div className={styles.background}>
-        <Image src={background} />
+        <Image src={background} alt='' />
         <div style={{ color: "white", position: "relative", bottom: '30px', 
           left: '5px',
           fontFamily:"Courier New"}}>
