@@ -87,12 +87,12 @@ const App = () => {
     </Head>
 
     <div className={styles.root}>
-        <header className={styles.header}>
+        <div className={styles.header}>
             <ul>
-            <li ><Link href="/"     /> Home    </li>
-            <li ><Link href="/leaderboard" /> Leaderboard   </li> 
+            <li > Home    </li>
+            <li > Leaderboard   </li> 
             </ul>
-        </header>
+        </div>
         <hero className={styles.leaderboard}>
             <div>
                 <Image alt='image' src={leaderboard}  />
