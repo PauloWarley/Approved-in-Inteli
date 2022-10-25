@@ -86,12 +86,12 @@ const App = () => {
     </Head>
 
     <div className={styles.root}>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <ul>
             <li >  Home  </li>
             <li >Leaderboard </li> 
         </ul>
-      </div>
+      </div> */}
       <hero className={styles.hero}>
         <p className={styles.hero_title}>Olá Candidato (a), <br/><br/> <strong>Seja bem-vindo (a)</strong> 
          à sua página de resultado do Processo Seletivo Inteli 2023.1</p>
