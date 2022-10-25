@@ -102,10 +102,12 @@ const App = () => {
         <div className={styles.section_quote}>
             <div className={styles.section_quote}>Boa sorte (controla a ansiedade) e que Ada Lovelace esteja com você :)</div>
         </div>
+
         <br/>
         <div className={styles.section_button}>
             <button className={styles.section_button} onClick={() => sendPhone(number)} >Enviar meu número</button>
         </div>
+        <div></div>
       </section>  
     </div>
     <div className={styles.background}>
