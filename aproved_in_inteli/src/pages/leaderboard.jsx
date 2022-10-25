@@ -95,14 +95,14 @@ const App = () => {
         </header>
         <hero className={styles.leaderboard}>
             <div>
-                <Image alt='' src={leaderboard}  />
+                <Image alt='image' src={leaderboard}  />
 
             </div>
         </hero>
     </div>
 
     <div className={styles.background}>
-        <Image alt='' src={background} />
+        <Image alt='image' src={background} />
         <div style={{ color: "white", position: "relative", bottom: '30px', 
           left: '5px',
           fontFamily:"Courier New"}}>
