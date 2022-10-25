@@ -17,7 +17,7 @@ const App = async (req, res) => {
 
 
   if (phones != null){
-    res.status(201).json({response: 'Response already exists'})
+    res.status(200).json({response: 'Response already exists'})
 
     return;
   } 
@@ -34,7 +34,7 @@ const App = async (req, res) => {
   }
 
   catch{
-    res.status(200).json({erro: "erro"})
+    res.status(203).json({erro: "erro"})
 
   }
 
