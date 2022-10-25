@@ -31,12 +31,12 @@ const App = () => {
 
             </div>
         </hero>
+        <div className={styles.background}>
+            <Image alt='image' src={background} />
+        </div> 
     </div>
 
-    <div className={styles.background}>
-        <Image alt='image' src={background} />
 
-    </div> 
 
     </>
   )
