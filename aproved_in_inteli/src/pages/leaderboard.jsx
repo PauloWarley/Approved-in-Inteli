@@ -63,7 +63,7 @@ const App = () => {
 
   return (
     <>
-    {/* <Head>
+    <Head>
       <title>Inteli Resultado</title>
       <meta name="description" content="Acompanhamento de resultados INTELI"/>
       <meta charSet="UTF-8"/>
@@ -89,7 +89,6 @@ const App = () => {
         <Image alt='image' src={background} />
 
     </div> 
-*/}
 
     </>
   )
