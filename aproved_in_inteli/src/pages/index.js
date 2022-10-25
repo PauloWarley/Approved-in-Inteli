@@ -54,7 +54,7 @@ const App = () => {
         <div style={{ color: "white", position: "relative", bottom: '30px', 
           left: '5px',
           fontFamily:"'Courier New', Courier, monospace;"}}>
-          Desenvelopado by: Paulo Warley and Keylla
+          Desenvelopado by: Paulo Warley and Keylla || Aplicativo não possui vínculo com a INTELI!
         </div>
     </div>
 
