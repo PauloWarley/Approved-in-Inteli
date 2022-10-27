@@ -91,7 +91,6 @@ const App = () => {
         <ul>
             <li >  Home  </li>
             <li >Leaderboard </li> 
-            <li >Snake </li> 
         </ul>
       </div>
       <hero className={styles.hero}>
