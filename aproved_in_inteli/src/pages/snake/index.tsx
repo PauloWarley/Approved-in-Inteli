@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useInterval from '@use-it/interval'
-
-import { HeadComponent as Head } from '../../components/Head'
+import Image from 'next/image'
+import background from '../../images/map_background.webp'
 
 type Apple = {
   x: number
@@ -17,8 +17,8 @@ type Velocity = {
 export default function SnakeGame() {
   // Canvas Settings
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  const canvasWidth = 500
-  const canvasHeight = 500
+  const canvasWidth = 1000
+  const canvasHeight = 1000
   const canvasGridSize = 20
 
   // Game Settings
@@ -329,66 +329,90 @@ export default function SnakeGame() {
     }
   }, [previousVelocity])
 
+  function drawScenery(){
+    // var c = document.getElementById("scenary");
+    // var ctx = c.getContext("2d");
+    // var img = document.getElementById("scream");
+    // ctx.drawImage(img, 10, 10);
+  }
+
   return (
     <>
-      <Head />
       <main style={{
           display: 'flex', 
-          backgroundColor:'gray', 
-          width: '100vw', 
+          width: '100%', 
           height: '100vh', 
           color: 'white', 
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-        <canvas
-          ref={canvasRef}
-          // width={canvasWidth + 1}
-          // height={canvasHeight + 1}
-          width={'500px'}
-          height={'500px'}
-          style={{backgroundColor:'white', color: 'white'}}
-        />
-        <section>
-          <div className="score">
-            <p>
-              <FontAwesomeIcon icon={['fas', 'star']} />
-              Score: {score}
-            </p>
-            <p>
-              <FontAwesomeIcon icon={['fas', 'trophy']} />
-              Highscore: {highscore > score ? highscore : score}
-            </p>
+        
+        <div style={{
+          display: 'flex', 
+          width: '100%', 
+          height: '100%', 
+          color: 'white', 
+        }}>
+          
+          <div style={{position: 'absolute', bottom:'0', width: '50%', height: '50%',}}>
+            <Image src={background} alt='game_background' />
           </div>
-          {!isLost && countDown > 0 ? (
-            <button onClick={startGame}>
-              {countDown === 4 ? 'Start Game' : countDown}
-            </button>
-          ) : (
-            <div className="controls">
-              <p>How to Play?</p>
-              <p>
-                <FontAwesomeIcon icon={['fas', 'arrow-up']} />
-                <FontAwesomeIcon icon={['fas', 'arrow-right']} />
-                <FontAwesomeIcon icon={['fas', 'arrow-down']} />
-                <FontAwesomeIcon icon={['fas', 'arrow-left']} />
-              </p>
-            </div>
-          )}
-        </section>
-        {isLost && (
-          <div className="game-overlay">
-            <p className="large">Game Over</p>
-            <p className="final-score">
-              {newHighscore ? `🎉 New Highscore 🎉` : `You scored: ${score}`}
-            </p>
-            {!running && isLost && (
-              <button onClick={startGame}>
-                {countDown === 4 ? 'Restart Game' : countDown}
-              </button>
+
+          <div id='game'>
+
+            <canvas
+              id='scenary'
+              ref={canvasRef}
+              // width={canvasWidth + 1}
+              // height={canvasHeight + 1}
+              width={'900px'}
+              height={'900px'}
+              // style={{backgroundColor:'rgb(255,255,255,1)', color: 'white'}}
+              style={{ position: 'absolute', bottom:'0', width: '100%', height: '50%', backgroundColor:'rgb(140,140,140,0)', color: 'white'}}
+            /> 
+
+            <section style={{position: 'absolute', bottom:'0', width: 'fit-content', height: 'fit-content',}}>
+              <div className="score" style={{backgroundColor: 'purple'}}>
+                <p>
+                  <FontAwesomeIcon icon={['fas', 'star']} />
+                  Score: {score}
+                </p>
+                <p>
+                  <FontAwesomeIcon icon={['fas', 'trophy']} />
+                  Highscore: {highscore > score ? highscore : score}
+                </p>
+                {!isLost && countDown > 0 ? (
+                <button onClick={startGame}>
+                {/* <button onClick={() => drawScenery()}> */}
+                  {countDown === 4 ? 'Start Game' : countDown}
+                </button>
+              ) : (
+                <div className="controls">
+                </div>
+              )}
+              </div>
+              
+            </section>
+        
+            {isLost && (
+              <div style={{position: 'absolute', bottom:'0', width: '50%', height: '50%',}} className="game-overlay">
+                <p className="large">Game Over</p>
+                <p className="final-score">
+                  {/* {newHighscore ? `🎉 New Highscore 🎉` : `You scored: ${score}`} */}
+                </p>
+                {!running && isLost && (
+                  <button onClick={startGame}>
+                    {countDown === 4 ? 'Restart Game' : countDown}
+                  </button>
+                )}
+              </div>
             )}
+
+         
           </div>
-        )}
+
+        </div>
+
       </main>
     </>
   )
