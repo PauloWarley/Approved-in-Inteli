@@ -6,6 +6,7 @@ import Input from '../components/InputMask'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import background from '../images/background.png'
+import useRouter from 'router'
 
 const App = () => {
   const [number, setNumber] = useState('')
@@ -88,7 +89,7 @@ const App = () => {
     <div className={styles.root}>
       <div className={styles.header}>
         <ul>
-            <li >  Home  </li>
+            <li onClick={{useRouter()}}>  Home  </li>
             <li >Leaderboard </li> 
         </ul>
       </div>
