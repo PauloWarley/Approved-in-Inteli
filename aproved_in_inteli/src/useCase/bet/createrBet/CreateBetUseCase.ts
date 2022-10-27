@@ -9,7 +9,7 @@ class CreateBetUseCase {
 
     async execute({nickname, bet_time}: IUserRequest){
 
-        var bet_limit = await client.bets_params.findMany({
+        var bet_limit: any = await client.bets_params.findMany({
             where: {
                 key: 'bet_limit', 
             }
