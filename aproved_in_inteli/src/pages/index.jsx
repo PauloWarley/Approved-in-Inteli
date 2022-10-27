@@ -89,7 +89,7 @@ const App = () => {
     <div className={styles.root}>
       <div className={styles.header}>
         <ul>
-            <li onClick={{useRouter()}}>  Home  </li>
+            <li >  Home  </li>
             <li >Leaderboard </li> 
         </ul>
       </div>
