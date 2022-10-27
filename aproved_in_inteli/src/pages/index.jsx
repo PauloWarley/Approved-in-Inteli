@@ -6,7 +6,6 @@ import Input from '../components/InputMask'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import background from '../images/background.png'
-
 const App = () => {
   const [number, setNumber] = useState('')
   const [modal, setModal] = useState('')
