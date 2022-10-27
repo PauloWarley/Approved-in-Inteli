@@ -4,6 +4,7 @@
 
 # dependencies
 /node_modules
+/whatsapp_bot/database.py
 /.pnp
 .pnp.js
 
