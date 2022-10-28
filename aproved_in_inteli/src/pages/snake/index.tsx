@@ -17,9 +17,13 @@ type Velocity = {
 export default function SnakeGame() {
   // Canvas Settings
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  const canvasWidth = 1000
-  const canvasHeight = 1000
+  const canvasWidth = canvasRef.current?.offsetWidth
+  const canvasHeight = canvasRef.current?.offsetHeight
   const canvasGridSize = 20
+
+  useEffect(()=> {
+    console.log(canvasRef)
+  }, [canvasRef])
 
   // Game Settings
   const minGameSpeed = 5
@@ -329,91 +333,97 @@ export default function SnakeGame() {
     }
   }, [previousVelocity])
 
-  function drawScenery(){
-    // var c = document.getElementById("scenary");
-    // var ctx = c.getContext("2d");
-    // var img = document.getElementById("scream");
-    // ctx.drawImage(img, 10, 10);
-  }
-
   return (
-    <>
-      <main style={{
-          display: 'flex', 
-          width: '100%', 
-          height: '100vh', 
-          color: 'white', 
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+    <div style={{
+        width: '100vw',
+        height: '100vh',
+        color: 'white',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+      
+      <div id='game_view' style={{
+        position: 'relative',
+        width: '70%', 
+        height: '70%',
+      }}>
         
-        <div style={{
-          display: 'flex', 
-          width: '100%', 
-          height: '100%', 
-          color: 'white', 
-        }}>
-          
-          <div style={{position: 'absolute', bottom:'0', width: '50%', height: '50%',}}>
-            <Image src={background} alt='game_background' />
-          </div>
-
-          <div id='game'>
-
-            <canvas
-              id='scenary'
-              ref={canvasRef}
-              // width={canvasWidth + 1}
-              // height={canvasHeight + 1}
-              width={'900px'}
-              height={'900px'}
-              // style={{backgroundColor:'rgb(255,255,255,1)', color: 'white'}}
-              style={{ position: 'absolute', bottom:'0', width: '100%', height: '50%', backgroundColor:'rgb(140,140,140,0)', color: 'white'}}
-            /> 
-
-            <section style={{position: 'absolute', bottom:'0', width: 'fit-content', height: 'fit-content',}}>
-              <div className="score" style={{backgroundColor: 'purple'}}>
-                <p>
-                  <FontAwesomeIcon icon={['fas', 'star']} />
-                  Score: {score}
-                </p>
-                <p>
-                  <FontAwesomeIcon icon={['fas', 'trophy']} />
-                  Highscore: {highscore > score ? highscore : score}
-                </p>
-                {!isLost && countDown > 0 ? (
-                <button onClick={startGame}>
-                {/* <button onClick={() => drawScenery()}> */}
-                  {countDown === 4 ? 'Start Game' : countDown}
-                </button>
-              ) : (
-                <div className="controls">
-                </div>
-              )}
-              </div>
-              
-            </section>
-        
-            {isLost && (
-              <div style={{position: 'absolute', bottom:'0', width: '50%', height: '50%',}} className="game-overlay">
-                <p className="large">Game Over</p>
-                <p className="final-score">
-                  {/* {newHighscore ? `🎉 New Highscore 🎉` : `You scored: ${score}`} */}
-                </p>
-                {!running && isLost && (
-                  <button onClick={startGame}>
-                    {countDown === 4 ? 'Restart Game' : countDown}
-                  </button>
-                )}
-              </div>
-            )}
-
-         
-          </div>
-
+        <div id='background_image' style={{position: 'absolute', top:'0', width: '100%', height: '100%',}}>
+          <Image src={background} alt='game_background' />
         </div>
 
-      </main>
-    </>
+        <div id='game' style={{position: 'absolute', top:'0', width: '100%', height: '100%',}}>
+
+          <canvas
+            id='scenary'
+            ref={canvasRef}
+            width={canvasWidth}
+            height={canvasHeight}
+            style={{
+                position: 'absolute', 
+                top:'0', 
+                width: '100%', 
+                height: '100%', 
+                backgroundColor:'rgb(140,140,140,0)', 
+                color: 'white'
+            }}
+          /> 
+
+          <section style={{position: 'absolute', top:'0', right:'0', width: 'fit-content', height: 'fit-content',}}>
+            <div className="score" style={{backgroundColor: 'purple'}}>
+              <p>
+                <FontAwesomeIcon icon={['fas', 'star']} />
+                Score: {score}
+              </p>
+              <p>
+                <FontAwesomeIcon icon={['fas', 'trophy']} />
+                Highscore: {highscore > score ? highscore : score}
+              </p>
+              {!isLost && countDown > 0 ? (
+              <button onClick={startGame}>
+              {/* <button onClick={() => drawScenery()}> */}
+                {countDown === 4 ? 'Start Game' : countDown}
+              </button>
+            ) : (
+              <div className="controls">
+              </div>
+            )}
+            </div>
+            
+          </section>
+      
+          {isLost && (
+            <div style={{
+              position: 'absolute', 
+              display:'flex', 
+              flexDirection: 'column',
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              width: '100%', 
+              height: '100%',
+              color: 'black',
+              fontSize:'30px',
+              fontWeight: 'bold'
+            }} className="game-overlay">
+
+              <p className="large">Game Over</p>
+              <p className="final-score">
+                {/* {newHighscore ? `🎉 New Highscore 🎉` : `You scored: ${score}`} */}
+              </p>
+              {!running && isLost && (
+                <button onClick={startGame}>
+                  {countDown === 4 ? 'Restart Game' : countDown}
+                </button>
+              )}
+            </div>
+          )}
+
+        
+        </div>
+
+      </div>
+
+    </div>
   )
 }
