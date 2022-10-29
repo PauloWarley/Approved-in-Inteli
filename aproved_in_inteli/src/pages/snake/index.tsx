@@ -1,8 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useInterval from '@use-it/interval'
-import Image from 'next/image'
-import background from '../../images/map_background.webp'
 import styles from '../../styles/Snake.module.css'
 
 type Apple = {
@@ -22,19 +19,25 @@ export default function SnakeGame() {
   const canvasHeight = canvasRef.current?.offsetHeight
   const canvasGridSize = 20
 
-  useEffect(()=> {
-    console.log(canvasRef)
-  }, [canvasRef])
-
   // Game Settings
   const minGameSpeed = 5
-  const maxGameSpeed = 15
+  const maxGameSpeed = 20
 
   // Game State
   const [gameDelay, setGameDelay] = useState<number>(1000 / minGameSpeed)
   const [countDown, setCountDown] = useState<number>(4)
   const [running, setRunning] = useState(false)
   const [scenaryAnim, setScenaryAnim] = useState(false)
+  const [terminalText, setTerminalText] = useState('root@root: >  node snake.js_')
+  const [word, SetWord] = useState([
+    'RESILIÊNCIA', 
+    'PROTAGONISMO', 
+    'ÉTICA',
+    'IMPACTO',
+  ])
+  const [charIndex, setCharIndex] = useState([0,0])
+  const [endGameText, setEndGameText] = useState('')
+  const [endGameTextIndex, setEndGameTextIndex] = useState(0)
 
   const [isLost, setIsLost] = useState(false)
   const [highscore, setHighscore] = useState(0)
@@ -58,6 +61,27 @@ export default function SnakeGame() {
     ctx.clearRect(-1, -1, canvasWidth + 2, canvasHeight + 2)
 
   const generateApplePosition = (): Apple => {
+
+    //Change char
+    try {
+      var maxIndex : number = word[charIndex[0]]?word[charIndex[0]].length -1:0 
+      
+    } catch (error) {
+      var maxIndex : number = 0
+    }
+
+    console.log({maxIndex})
+
+    if (charIndex[1] < maxIndex && running){
+      setCharIndex( [charIndex[0], charIndex[1] +1] )
+    }
+    else if(running){
+      console.log('aqui')
+      setCharIndex( [charIndex[0] + 1, 0] )
+    }
+
+    console.log(charIndex)
+
     const x = Math.floor(Math.random() * (canvasWidth / canvasGridSize))
     const y = Math.floor(Math.random() * (canvasHeight / canvasGridSize))
     // Check if random position interferes with snake head or trail
@@ -72,6 +96,9 @@ export default function SnakeGame() {
 
   // Initialise state and start countdown
   const startGame = () => {
+
+    if (running) return;
+
     setGameDelay(1000 / minGameSpeed)
     setIsLost(false)
     setScore(0)
@@ -125,9 +152,6 @@ export default function SnakeGame() {
     y: number,
     text: string
   ) => {
-
-    console.log('aqui agr', text)
-
 
     ctx.fillText(text, x, y)
   }
@@ -202,11 +226,14 @@ export default function SnakeGame() {
       ctx.fillStyle = '#fff'
       ctx.strokeStyle = 'white'
 
+      ctx.textBaseline = 'top';
+      ctx.font = "20px Arial";
+
       fillText(
         ctx,
-        apple.x * canvasGridSize,
-        apple.y * canvasGridSize,
-        'G',
+        apple.x * canvasGridSize +2.5,
+        apple.y * canvasGridSize +2.5,
+        word[charIndex[0]]?word[charIndex[0]][charIndex[1]]: ''
       )
     }
   }
@@ -255,20 +282,28 @@ export default function SnakeGame() {
 
   }
 
-  const updateScenary = () => {
-    
-    var canvas = canvasRef?.current
-    var ctx = canvas?.getContext('2d')
+  const endGame = () => {
 
-    ctx.font = "20px Monomaniac One";
+    setGameDelay(15000)
 
-    if (scenaryAnim){
-      fillText(ctx, 20, 20, 'root@root: >  node snake.js_')
+
+    var text = 'Parabéns!! 🎉🎉\n Agora faça como a cobrinha, \n e se alimente de boas ideias'
+
+    if (endGameTextIndex == text.length +1){
+      setTimeout(() => {
+
+        setEndGameText('')
+
+        setGameDelay(1000/maxGameSpeed)
+
+        
+      }, 10000)
+      
     }
-    else {
-      fillText(ctx, 20, 20, 'root@root: >  node snake.js')
+    else{
+      setEndGameText(`${text.substring(0, endGameTextIndex)}${scenaryAnim?'_':' '}`)
+      setEndGameTextIndex(endGameTextIndex +1)
     }
-    
   }
 
   // Game Hook
@@ -289,23 +324,36 @@ export default function SnakeGame() {
       if (!isLost) {
         updateSnake()
       }
+      
+
     },
     running && countDown === 0 ? gameDelay : null
   )
 
   useInterval( () => {
-      // updateScenary()
-    
+    var text_log = `\nrunning...`
+    if (running){
+      text_log = `\nrunning... ` + countDown
+    }
+    else text_log = `\nrunning... \nYou Lose!`
+    if(scenaryAnim) {
+      setTerminalText('root@root: >  node snake.js_' + text_log);
+    }
+    else {
+      setTerminalText(`root@root: >  node snake.js` + text_log);
+    }
 
-    }, 0)
-
-  useInterval( () => {
-    // updateScenary()
     setScenaryAnim(!scenaryAnim)
+  }, 700)
 
-  }, 500)
+  useInterval (
+    () => {
+      if (charIndex[0] > word.length-1 ){
+        endGame()
+      }
 
-
+    }, 100
+  )
   // Countdown Interval
   useInterval(
     () => {
@@ -394,6 +442,9 @@ export default function SnakeGame() {
 
   return (
     <div style={{
+        position: 'absolute',
+        top: '0',
+        left: '0',
         width: '100vw',
         height: '100vh',
         color: 'white',
@@ -404,12 +455,12 @@ export default function SnakeGame() {
       }}>
       
       <div id='game_view' style={{
-        position: 'relative',
+        position: 'absolute',
         width: '70%', 
         height: '70%',
       }}>
 
-        <div id='game' className={styles.game}>
+        <div id='background_terminal' style={{top: '5%', right: '5%'}} className={styles.game}>
           <div className={styles.game_title_bar}>
             <svg width="51" height="12" viewBox="0 0 51 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="6.09246" cy="6.40286" rx="5.69537" ry="5.58451" fill="#EF0100"/>
@@ -419,7 +470,7 @@ export default function SnakeGame() {
 
             <div>
               <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_73_85)">
+                <g clipPath="url(#clip0_73_85)">
                 <path d="M11.8172 3.81827H16.353C16.6696 3.81824 16.9827 3.88291 17.2724 4.00814C17.562 4.13337 17.8219 4.31643 18.0354 4.54562C18.2489 4.77482 18.4113 5.04514 18.5123 5.33932C18.6133 5.6335 18.6507 5.9451 18.6221 6.25424L17.8965 14.0725C17.845 14.6275 17.5839 15.1437 17.1643 15.5196C16.7447 15.8954 16.1969 16.104 15.6286 16.1042H3.8403C3.27195 16.104 2.7242 15.8954 2.3046 15.5196C1.88499 15.1437 1.62384 14.6275 1.5724 14.0725L0.846815 6.25424C0.798275 5.73687 0.936112 5.21917 1.23638 4.7911L1.19195 3.81827C1.19195 3.22583 1.43197 2.65766 1.85921 2.23874C2.28644 1.81982 2.8659 1.58447 3.4701 1.58447H7.65278C8.25693 1.5846 8.83629 1.82003 9.26343 2.23898L10.2066 3.16377C10.6337 3.58272 11.2131 3.81815 11.8172 3.81827V3.81827ZM2.33786 3.9523C2.58162 3.86518 2.84361 3.81827 3.11699 3.81827H9.26343L8.4581 3.02863C8.24454 2.81915 7.95485 2.70144 7.65278 2.70137H3.4701C3.17171 2.70132 2.88522 2.81608 2.67221 3.02097C2.4592 3.22586 2.3367 3.50453 2.33103 3.79705L2.33786 3.9523V3.9523Z" fill="#2A84B2"/>
                 </g>
                 <defs>
@@ -432,7 +483,12 @@ export default function SnakeGame() {
             </div>
           
           </div>
-          <div className={styles.game_terminal_text}>{'root@root: >  node snake.js_'}</div>
+          <div className={styles.game_terminal_text}> 
+            <span style={{whiteSpace: "pre-line"}}>{'root@root: >  node snake.js_'}</span> 
+          </div>
+        </div>
+
+        <div id='game' className={styles.game}>
 
           <canvas
             id='scenary'
@@ -441,52 +497,78 @@ export default function SnakeGame() {
             height={canvasHeight}
           /> 
 
-          <section style={{position: 'absolute', top:'0', right:'0', width: 'fit-content', height: 'fit-content',}}>
-            <div className="score">
-              <p>
-                Score: {score}
-              </p>
-              <p>
-                Highscore: {highscore > score ? highscore : score}
-              </p>
-              {!isLost && countDown > 0 ? (
-              <button onClick={startGame}>
-                {countDown === 4 ? 'Start Game' : countDown}
-              </button>
-            ) : (
-              <div className="controls">
-              </div>
-            )}
+          <div className={styles.game_title_bar}>
+            <svg width="51" height="12" viewBox="0 0 51 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="6.09246" cy="6.40286" rx="5.69537" ry="5.58451" fill="#EF0100"/>
+              <ellipse cx="25.4565" cy="6.40286" rx="5.69537" ry="5.58451" fill="#DA226F"/>
+              <ellipse cx="44.8209" cy="6.40286" rx="5.69537" ry="5.58451" fill="#541494"/>
+            </svg>
+
+            <div>
+              <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clipPath="url(#clip0_73_85)">
+                <path d="M11.8172 3.81827H16.353C16.6696 3.81824 16.9827 3.88291 17.2724 4.00814C17.562 4.13337 17.8219 4.31643 18.0354 4.54562C18.2489 4.77482 18.4113 5.04514 18.5123 5.33932C18.6133 5.6335 18.6507 5.9451 18.6221 6.25424L17.8965 14.0725C17.845 14.6275 17.5839 15.1437 17.1643 15.5196C16.7447 15.8954 16.1969 16.104 15.6286 16.1042H3.8403C3.27195 16.104 2.7242 15.8954 2.3046 15.5196C1.88499 15.1437 1.62384 14.6275 1.5724 14.0725L0.846815 6.25424C0.798275 5.73687 0.936112 5.21917 1.23638 4.7911L1.19195 3.81827C1.19195 3.22583 1.43197 2.65766 1.85921 2.23874C2.28644 1.81982 2.8659 1.58447 3.4701 1.58447H7.65278C8.25693 1.5846 8.83629 1.82003 9.26343 2.23898L10.2066 3.16377C10.6337 3.58272 11.2131 3.81815 11.8172 3.81827V3.81827ZM2.33786 3.9523C2.58162 3.86518 2.84361 3.81827 3.11699 3.81827H9.26343L8.4581 3.02863C8.24454 2.81915 7.95485 2.70144 7.65278 2.70137H3.4701C3.17171 2.70132 2.88522 2.81608 2.67221 3.02097C2.4592 3.22586 2.3367 3.50453 2.33103 3.79705L2.33786 3.9523V3.9523Z" fill="#2A84B2"/>
+                </g>
+                <defs>
+                <clipPath id="clip0_73_85">
+                <rect width="18.2252" height="17.8704" fill="white" transform="translate(0.622437 0.467773)"/>
+                </clipPath>
+                </defs>
+              </svg>
+              snake.js
             </div>
+          
+          </div>
+          <div className={styles.game_terminal_text}> 
+            <span style={{whiteSpace: "pre-line"}}>{terminalText}</span> 
+          </div>
+          <div className={styles.game_word}> 
+            <span style={{whiteSpace: "pre-line"}}>{word[charIndex[0]]?.substring(0, charIndex[1]) }</span> 
+          </div>
+
+          <div className={styles.game_word_list}> 
+            <span style={{whiteSpace: "pre-line", color: '#FF4645'}}>.{word.slice(0 , charIndex[0] > 0? 1: 0)}</span> 
+            <span style={{whiteSpace: "pre-line", color: '#7E62D8'}}>.{word.slice(1 , charIndex[0] > 1? 2: 0)}</span> 
+            <span style={{whiteSpace: "pre-line", color: '#4321A4'}}>.{word.slice(2 ,  charIndex[0] > 2? 3: 0)}</span> 
+            <span style={{whiteSpace: "pre-line", color: '#EF8753'}}>.{word.slice(3 , charIndex[0] > 3? 4: 0)}</span> 
+          </div>
+
+
+
+          <div onMouseMove={(e) => {
+              startGame()
+            }} 
             
-          </section>
+            className={styles.game_score}>
+            <p>
+              Score: {score}
+            </p>
+            <p>
+              Highscore: {highscore > score ? highscore : score}
+            </p>
+
+          </div>
+
+       
+          <div className={styles.game_end}>
+            <span> {endGameText}</span>
+          </div>
+
       
           {isLost && (
-            <div style={{
-              position: 'absolute', 
-              display:'flex', 
-              flexDirection: 'column',
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              width: '100%', 
-              height: '100%',
-              color: 'black',
-              fontSize:'30px',
-              fontWeight: 'bold'
-            }} className="game-overlay">
+            <div className={styles.game_control}>
 
               <p className="large">Game Over</p>
-              <p className="final-score">
-                {/* {newHighscore ? `🎉 New Highscore 🎉` : `You scored: ${score}`} */}
-              </p>
+
               {!running && isLost && (
-                <button onClick={startGame}>
+                <button  onClick={startGame}>
                   {countDown === 4 ? 'Restart Game' : countDown}
                 </button>
               )}
             </div>
           )}
         </div>
+
       </div>
     </div>
   )
