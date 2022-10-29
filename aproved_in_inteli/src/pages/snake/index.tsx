@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useInterval from '@use-it/interval'
 import Image from 'next/image'
 import background from '../../images/map_background.webp'
+import styles from '../../styles/Snake.module.css'
 
 type Apple = {
   x: number
@@ -33,6 +34,8 @@ export default function SnakeGame() {
   const [gameDelay, setGameDelay] = useState<number>(1000 / minGameSpeed)
   const [countDown, setCountDown] = useState<number>(4)
   const [running, setRunning] = useState(false)
+  const [scenaryAnim, setScenaryAnim] = useState(false)
+
   const [isLost, setIsLost] = useState(false)
   const [highscore, setHighscore] = useState(0)
   const [newHighscore, setNewHighscore] = useState(false)
@@ -116,9 +119,22 @@ export default function SnakeGame() {
     ctx.strokeRect(x + 0.5, y + 0.5, w, h)
   }
 
+  const fillText = (
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    text: string
+  ) => {
+
+    console.log('aqui agr', text)
+
+
+    ctx.fillText(text, x, y)
+  }
+
   const drawSnake = (ctx: CanvasRenderingContext2D) => {
-    ctx.fillStyle = '#0170F3'
-    ctx.strokeStyle = '#003779'
+    ctx.fillStyle = '#fff'
+    ctx.strokeStyle = 'black'
 
     fillRect(
       ctx,
@@ -137,6 +153,7 @@ export default function SnakeGame() {
     )
 
     snake.trail.forEach((snakePart) => {
+
       fillRect(
         ctx,
         snakePart.x * canvasGridSize,
@@ -152,6 +169,7 @@ export default function SnakeGame() {
         canvasGridSize,
         canvasGridSize
       )
+      
     })
   }
 
@@ -164,7 +182,8 @@ export default function SnakeGame() {
       typeof apple.x !== 'undefined' &&
       typeof apple.y !== 'undefined'
     ) {
-      fillRect(
+
+      fillRect (
         ctx,
         apple.x * canvasGridSize,
         apple.y * canvasGridSize,
@@ -178,6 +197,16 @@ export default function SnakeGame() {
         apple.y * canvasGridSize,
         canvasGridSize,
         canvasGridSize
+      )
+
+      ctx.fillStyle = '#fff'
+      ctx.strokeStyle = 'white'
+
+      fillText(
+        ctx,
+        apple.x * canvasGridSize,
+        apple.y * canvasGridSize,
+        'G',
       )
     }
   }
@@ -223,6 +252,23 @@ export default function SnakeGame() {
       head: { ...nextHeadPosition },
       trail: [...updatedSnakeTrail],
     })
+
+  }
+
+  const updateScenary = () => {
+    
+    var canvas = canvasRef?.current
+    var ctx = canvas?.getContext('2d')
+
+    ctx.font = "20px Monomaniac One";
+
+    if (scenaryAnim){
+      fillText(ctx, 20, 20, 'root@root: >  node snake.js_')
+    }
+    else {
+      fillText(ctx, 20, 20, 'root@root: >  node snake.js')
+    }
+    
   }
 
   // Game Hook
@@ -238,14 +284,27 @@ export default function SnakeGame() {
   }, [snake])
 
   // Game Update Interval
-  useInterval(
-    () => {
+  useInterval( () => {
+
       if (!isLost) {
         updateSnake()
       }
     },
     running && countDown === 0 ? gameDelay : null
   )
+
+  useInterval( () => {
+      // updateScenary()
+    
+
+    }, 0)
+
+  useInterval( () => {
+    // updateScenary()
+    setScenaryAnim(!scenaryAnim)
+
+  }, 500)
+
 
   // Countdown Interval
   useInterval(
@@ -340,7 +399,8 @@ export default function SnakeGame() {
         color: 'white',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#272529'
       }}>
       
       <div id='game_view' style={{
@@ -348,41 +408,49 @@ export default function SnakeGame() {
         width: '70%', 
         height: '70%',
       }}>
-        
-        <div id='background_image' style={{position: 'absolute', top:'0', width: '100%', height: '100%',}}>
-          <Image src={background} alt='game_background' />
-        </div>
 
-        <div id='game' style={{position: 'absolute', top:'0', width: '100%', height: '100%',}}>
+        <div id='game' className={styles.game}>
+          <div className={styles.game_title_bar}>
+            <svg width="51" height="12" viewBox="0 0 51 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="6.09246" cy="6.40286" rx="5.69537" ry="5.58451" fill="#EF0100"/>
+              <ellipse cx="25.4565" cy="6.40286" rx="5.69537" ry="5.58451" fill="#DA226F"/>
+              <ellipse cx="44.8209" cy="6.40286" rx="5.69537" ry="5.58451" fill="#541494"/>
+            </svg>
+
+            <div>
+              <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_73_85)">
+                <path d="M11.8172 3.81827H16.353C16.6696 3.81824 16.9827 3.88291 17.2724 4.00814C17.562 4.13337 17.8219 4.31643 18.0354 4.54562C18.2489 4.77482 18.4113 5.04514 18.5123 5.33932C18.6133 5.6335 18.6507 5.9451 18.6221 6.25424L17.8965 14.0725C17.845 14.6275 17.5839 15.1437 17.1643 15.5196C16.7447 15.8954 16.1969 16.104 15.6286 16.1042H3.8403C3.27195 16.104 2.7242 15.8954 2.3046 15.5196C1.88499 15.1437 1.62384 14.6275 1.5724 14.0725L0.846815 6.25424C0.798275 5.73687 0.936112 5.21917 1.23638 4.7911L1.19195 3.81827C1.19195 3.22583 1.43197 2.65766 1.85921 2.23874C2.28644 1.81982 2.8659 1.58447 3.4701 1.58447H7.65278C8.25693 1.5846 8.83629 1.82003 9.26343 2.23898L10.2066 3.16377C10.6337 3.58272 11.2131 3.81815 11.8172 3.81827V3.81827ZM2.33786 3.9523C2.58162 3.86518 2.84361 3.81827 3.11699 3.81827H9.26343L8.4581 3.02863C8.24454 2.81915 7.95485 2.70144 7.65278 2.70137H3.4701C3.17171 2.70132 2.88522 2.81608 2.67221 3.02097C2.4592 3.22586 2.3367 3.50453 2.33103 3.79705L2.33786 3.9523V3.9523Z" fill="#2A84B2"/>
+                </g>
+                <defs>
+                <clipPath id="clip0_73_85">
+                <rect width="18.2252" height="17.8704" fill="white" transform="translate(0.622437 0.467773)"/>
+                </clipPath>
+                </defs>
+              </svg>
+              snake.js
+            </div>
+          
+          </div>
+          <div className={styles.game_terminal_text}>{'root@root: >  node snake.js_'}</div>
 
           <canvas
             id='scenary'
             ref={canvasRef}
             width={canvasWidth}
             height={canvasHeight}
-            style={{
-                position: 'absolute', 
-                top:'0', 
-                width: '100%', 
-                height: '100%', 
-                backgroundColor:'rgb(140,140,140,0)', 
-                color: 'white'
-            }}
           /> 
 
           <section style={{position: 'absolute', top:'0', right:'0', width: 'fit-content', height: 'fit-content',}}>
-            <div className="score" style={{backgroundColor: 'purple'}}>
+            <div className="score">
               <p>
-                <FontAwesomeIcon icon={['fas', 'star']} />
                 Score: {score}
               </p>
               <p>
-                <FontAwesomeIcon icon={['fas', 'trophy']} />
                 Highscore: {highscore > score ? highscore : score}
               </p>
               {!isLost && countDown > 0 ? (
               <button onClick={startGame}>
-              {/* <button onClick={() => drawScenery()}> */}
                 {countDown === 4 ? 'Start Game' : countDown}
               </button>
             ) : (
@@ -418,12 +486,8 @@ export default function SnakeGame() {
               )}
             </div>
           )}
-
-        
         </div>
-
       </div>
-
     </div>
   )
 }
