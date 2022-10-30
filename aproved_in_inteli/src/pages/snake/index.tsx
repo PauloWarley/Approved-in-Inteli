@@ -376,8 +376,8 @@ export default function SnakeGame() {
   useEffect(() => {
     if (score >= minGameSpeed && score <= maxGameSpeed) {
     }
-
-    for (var i in word){
+    var i: number = 0
+    for (i; i < word.length; i++){
       if(score > i*word.length){
         setGameDelay(1000 / ( 7 + word.length ))
       }
