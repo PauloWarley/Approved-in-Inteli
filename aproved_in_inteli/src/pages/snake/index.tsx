@@ -20,8 +20,8 @@ export default function SnakeGame() {
   const canvasGridSize = 20
 
   // Game Settings
-  const minGameSpeed = 5
-  const maxGameSpeed = 20
+  const minGameSpeed = 1
+  const maxGameSpeed = 7
 
   // Game State
   const [gameDelay, setGameDelay] = useState<number>(1000 / minGameSpeed)
@@ -30,10 +30,10 @@ export default function SnakeGame() {
   const [scenaryAnim, setScenaryAnim] = useState(false)
   const [terminalText, setTerminalText] = useState('root@root: >  node snake.js_')
   const [word, SetWord] = useState([
-    'RESILIÊNCIA', 
-    'PROTAGONISMO', 
     'ÉTICA',
     'IMPACTO',
+    'RESILIÊNCIA', 
+    'PROTAGONISMO', 
   ])
   const [charIndex, setCharIndex] = useState([0,0])
   const [endGameText, setEndGameText] = useState('')
@@ -70,17 +70,12 @@ export default function SnakeGame() {
       var maxIndex : number = 0
     }
 
-    console.log({maxIndex})
-
     if (charIndex[1] < maxIndex && running){
       setCharIndex( [charIndex[0], charIndex[1] +1] )
     }
     else if(running){
-      console.log('aqui')
       setCharIndex( [charIndex[0] + 1, 0] )
     }
-
-    console.log(charIndex)
 
     const x = Math.floor(Math.random() * (canvasWidth / canvasGridSize))
     const y = Math.floor(Math.random() * (canvasHeight / canvasGridSize))
@@ -99,7 +94,7 @@ export default function SnakeGame() {
 
     if (running) return;
 
-    setGameDelay(1000 / minGameSpeed)
+    setGameDelay(1000 / (minGameSpeed+5))
     setIsLost(false)
     setScore(0)
     setSnake({
@@ -287,14 +282,14 @@ export default function SnakeGame() {
     setGameDelay(15000)
 
 
-    var text = 'Parabéns!! 🎉🎉\n Agora faça como a cobrinha, \n e se alimente de boas ideias'
+    var text = 'Parabéns!! 🎉🎉\n Agora faça como a cobrinha \n e se alimente de boas ideias'
 
     if (endGameTextIndex == text.length +1){
       setTimeout(() => {
 
         setEndGameText('')
 
-        setGameDelay(1000/maxGameSpeed)
+        setGameDelay(1000/maxGameSpeed+8)
 
         
       }, 10000)
@@ -335,7 +330,13 @@ export default function SnakeGame() {
     if (running){
       text_log = `\nrunning... ` + countDown
     }
-    else text_log = `\nrunning... \nYou Lose!`
+    else if(isLost) {
+      text_log = `\nrunning... \nYou Lose!`
+    }
+    else {
+      text_log = `\nrunning... \nEncontre as 4 palavras para as bolinhas!`
+    }
+
     if(scenaryAnim) {
       setTerminalText('root@root: >  node snake.js_' + text_log);
     }
@@ -373,13 +374,20 @@ export default function SnakeGame() {
 
   // Score Hook: increase game speed starting at 16
   useEffect(() => {
-    if (score > minGameSpeed && score <= maxGameSpeed) {
-      setGameDelay(1000 / score)
+    if (score >= minGameSpeed && score <= maxGameSpeed) {
     }
+
+    for (var i in word){
+      if(score > i*word.length){
+        setGameDelay(1000 / ( 7 + word.length ))
+      }
+    }
+
   }, [score])
 
   // Event Listener: Key Presses
   useEffect(() => {
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
         [
@@ -527,10 +535,10 @@ export default function SnakeGame() {
           </div>
 
           <div className={styles.game_word_list}> 
-            <span style={{whiteSpace: "pre-line", color: '#FF4645'}}>.{word.slice(0 , charIndex[0] > 0? 1: 0)}</span> 
-            <span style={{whiteSpace: "pre-line", color: '#7E62D8'}}>.{word.slice(1 , charIndex[0] > 1? 2: 0)}</span> 
-            <span style={{whiteSpace: "pre-line", color: '#4321A4'}}>.{word.slice(2 ,  charIndex[0] > 2? 3: 0)}</span> 
-            <span style={{whiteSpace: "pre-line", color: '#EF8753'}}>.{word.slice(3 , charIndex[0] > 3? 4: 0)}</span> 
+            <span style={{whiteSpace: "pre-line", color: '#FF4645'}}>⬤{word.slice(0 , charIndex[0] > 0? 1: 0)}</span> 
+            <span style={{whiteSpace: "pre-line", color: '#7E62D8'}}>⬤{word.slice(1 , charIndex[0] > 1? 2: 0)}</span> 
+            <span style={{whiteSpace: "pre-line", color: '#4321A4'}}>⬤{word.slice(2 ,  charIndex[0] > 2? 3: 0)}</span> 
+            <span style={{whiteSpace: "pre-line", color: '#EF8753'}}>⬤{word.slice(3 , charIndex[0] > 3? 4: 0)}</span> 
           </div>
 
 
