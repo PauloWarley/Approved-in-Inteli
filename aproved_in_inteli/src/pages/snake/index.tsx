@@ -279,7 +279,7 @@ export default function SnakeGame() {
 
   const endGame = () => {
 
-    setGameDelay(15000)
+    setGameDelay(150000)
 
 
     var text = 'Parabéns!! 🎉🎉\n Agora faça como a cobrinha \n e se alimente de boas ideias'
@@ -289,7 +289,7 @@ export default function SnakeGame() {
 
         setEndGameText('')
 
-        setGameDelay(1000/maxGameSpeed+8)
+        setGameDelay(1000/12)
 
         
       }, 10000)
