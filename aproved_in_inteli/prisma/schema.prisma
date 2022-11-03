@@ -8,14 +8,16 @@ datasource db {
 }
 
 model phones {
-  id           Int      @id @default(autoincrement())
-  phone        String
+  id          Int       @id @default(autoincrement())
+  phone       String
+  createdDate DateTime? @db.DateTime(0)
 }
 
 model bets {
-  id           Int      @id @default(autoincrement())
-  nickname     String
-  time         String
+  id          Int       @id @default(autoincrement())
+  nickname    String
+  time        String
+  createdDate DateTime? @db.DateTime(0)
 }
 
 model couriers {
@@ -188,4 +190,10 @@ model users {
   name      String
   username  String
   createdAt DateTime @default(now())
+}
+
+model bets_params {
+  id    Int     @id
+  key   String? @db.VarChar(20)
+  value String? @db.VarChar(20)
 }
