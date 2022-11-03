@@ -7,6 +7,7 @@ function Header() {
 
     return (
         <PageHeader>
+            <title>Inteli Me Responde</title>
             <p>inteli</p>
             <NavBar>
                 <ul>
