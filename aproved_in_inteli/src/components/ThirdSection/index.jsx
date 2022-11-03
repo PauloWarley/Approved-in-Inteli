@@ -16,7 +16,7 @@ function ThirdSection() {
                     Como foi um processo muito legal e divertido, <strong>decidimos falar sério e criar outro</strong> {"(bonito dessa vez né?)."} 
                     <br/>
 
-                    Assim nasceu o que você está lendo agora.&quot
+                    Assim nasceu o que você está lendo agora.
                     <span>&#127881;</span>
                 </TextComponent>
                 <Maintext id="quem-somos">
