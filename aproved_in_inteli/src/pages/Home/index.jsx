@@ -9,6 +9,7 @@ import FirstSection from '../../components/FirstSection'
 import SecondSection from '../../components/SecondSection'
 import ThirdSection from '../../components/ThirdSection'
 import FourthSection from '../../components/FourthSection'
+import SnakeGame from '../../components/SnakeGame'
 
 const Home = () => {
   const [number, setNumber] = useState('')
@@ -86,6 +87,7 @@ const Home = () => {
       <SecondSection  />
       <ThirdSection />
       <FourthSection />
+      <SnakeGame />
     </>
   )
 }

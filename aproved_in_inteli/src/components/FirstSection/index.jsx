@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ContentContainer, FormComponent, InputGroup, LineWrapper, PageSection, SliderText, SmallText, SubmitButton, TextComponent, TextInput, WelcomeText } from "./style";
-import MyIcon from "./../../images/firstsection.svg";
+// import MyIcon from "./../../images/firstsection.svg";
 import { AiOutlineSend, AiOutlineArrowDown } from "react-icons/ai";
 
 
@@ -19,7 +19,7 @@ function FirstSection() {
                             <br/>{"*WhatsApp man :)"}
                         </SmallText>
                     </WelcomeText>
-                    <MyIcon />
+                    {/* <MyIcon /> */}
                 </LineWrapper>
                 <LineWrapper>
                     <TextComponent>
