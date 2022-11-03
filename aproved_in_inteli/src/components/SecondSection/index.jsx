@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CountUp from "react-countup";
 import { ContentWrapper, ImgContainer, LineWrapper, MainText, PageSection, TextComponent, XComponent, Counter, CounterInfo, Mockup } from "./style";
-
+import Image from "next/image";
 
 function SecondSection() {
 
@@ -9,7 +9,7 @@ function SecondSection() {
         <PageSection>
             <ContentWrapper>
                 <ImgContainer>
-                    <img src="./images/rounded-arabesque.png" />
+                    <Image alt="rounded-arabesque" src="./images/rounded-arabesque.png" />
                 </ImgContainer>
                 <LineWrapper>
                     <MainText>
@@ -21,7 +21,7 @@ function SecondSection() {
                     </TextComponent>
                 </LineWrapper>
                 <XComponent>
-                    <img src="./images/x.png" />
+                    <Image alt="x" src="./images/x.png" />
                 </XComponent>
                 <LineWrapper>
                     <TextComponent>
@@ -53,7 +53,7 @@ function SecondSection() {
                     </Counter>
                 </LineWrapper>
                 <Mockup>
-                    <img src="./images/mockup.png" />
+                    <Image alt="mockup" src="./images/mockup.png" />
                 </Mockup>
             </ContentWrapper>
         </PageSection>
