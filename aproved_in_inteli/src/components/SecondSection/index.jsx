@@ -9,7 +9,7 @@ function SecondSection() {
         <PageSection>
             <ContentWrapper>
                 <ImgContainer>
-                    <Image alt="rounded-arabesque" src="./images/rounded-arabesque.png" />
+                    <Image width={"100%"} height={"100%"} alt="rounded-arabesque" src="/images/rounded-arabesque.png" />
                 </ImgContainer>
                 <LineWrapper>
                     <MainText>
@@ -21,7 +21,7 @@ function SecondSection() {
                     </TextComponent>
                 </LineWrapper>
                 <XComponent>
-                    <Image alt="x" src="./images/x.png" />
+                    <Image width={"100%"} height={"100%"} alt="x" src="/images/x.png" />
                 </XComponent>
                 <LineWrapper>
                     <TextComponent>
@@ -53,7 +53,7 @@ function SecondSection() {
                     </Counter>
                 </LineWrapper>
                 <Mockup>
-                    <Image alt="mockup" src="./images/mockup.png" />
+                    <Image width={"100%"} height={"100%"} alt="mockup" src="/images/mockup.png" />
                 </Mockup>
             </ContentWrapper>
         </PageSection>
