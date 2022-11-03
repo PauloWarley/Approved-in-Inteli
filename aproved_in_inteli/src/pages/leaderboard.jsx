@@ -28,7 +28,6 @@ const App = () => {
         <hero className={styles.leaderboard}>
             <div>
                 <Image alt='image' src={leaderboard}  />
-
             </div>
         </hero>
         <div className={styles.background}>
