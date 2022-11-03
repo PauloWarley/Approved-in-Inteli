@@ -9,7 +9,7 @@ function FourthSection(){
             <PinkCard>
                 <p>E aí, gostou? Se sim, quer nos ajudar a melhorar com sua opinião?</p>
             </PinkCard>
-            <Image alt="curver-arrow" src="./images/curver-arrow.png" />
+            <Image alt="curver-arrow" src="/images/curver-arrow.png" />
             <PurpleCard>
                 <p>
                     Só clicar <a href="#">aqui</a> que você será redirecionado ao nosso forms. Gratidão {":)"}
