@@ -290,7 +290,6 @@ export default function SnakeGame() {
         setEndGameText('')
 
         setGameDelay(1000/12)
-
         
       }, 10000)
       
