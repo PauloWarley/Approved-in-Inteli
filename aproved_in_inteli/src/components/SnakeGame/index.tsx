@@ -12,7 +12,7 @@ type Velocity = {
   dy: number
 }
 
-export default function SnakeGame() {
+const SnakeGame = () => {
   // Canvas Settings
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const canvasWidth = canvasRef.current?.offsetWidth
@@ -388,6 +388,13 @@ export default function SnakeGame() {
   useEffect(() => {
 
     const handleKeyDown = (e: KeyboardEvent) => {
+
+      window.addEventListener("keydown", function(e) {
+        if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+            e.preventDefault();
+          }
+      }, false);
+
       if (
         [
           'ArrowUp',
@@ -449,10 +456,10 @@ export default function SnakeGame() {
 
   return (
     <div style={{
-        position: 'absolute',
+        // position: 'absolute',
         top: '0',
         left: '0',
-        width: '100vw',
+        width: '100%',
         height: '100vh',
         color: 'white',
         display: 'flex',
@@ -580,3 +587,5 @@ export default function SnakeGame() {
     </div>
   )
 }
+
+export default SnakeGame;
