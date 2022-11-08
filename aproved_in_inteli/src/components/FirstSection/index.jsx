@@ -4,14 +4,17 @@ import {ProjectMonitor, ContentContainer, FormComponent, InputGroup, LineWrapper
 import { AiOutlineSend, AiOutlineArrowDown } from "react-icons/ai";
 import axios from "axios";
 import { useEffect } from "react";
+import moment from "moment";
 
 function FirstSection() {
 
     const [number, setNumber] = useState('');
     const [modal, setModal] = useState('')
+    const [statusProject, setStatusProject] = useState({})
 
-    function getProjectMonitor(){
-
+    async function getProjectMonitor(){
+      var response = (await axios.get('/api/getprojectstatus')).data.response[0]
+      setStatusProject(response)
     }
 
     function modalConclusion(id){
@@ -71,7 +74,7 @@ function FirstSection() {
 
     useEffect(() => {
       getProjectMonitor()
-    })
+    }, 1)
 
     return (
         <PageSection id="home">
@@ -120,10 +123,10 @@ function FirstSection() {
                 </tbody>
               </table> 
               <br/>
-              <div><span>Saúde & Bem-Estar : <strong>72</strong></span></div><br/>
-              <div><span> Clima : <strong>54</strong> </span></div><br/>
-              <div><span> Segurança Urbana : <strong>35</strong></span></div><br/>
-              <small>Mon Nov  7 21:41:05 2022</small><br/>
+              <div><span>Saúde & Bem-Estar : <strong>{statusProject?.saude}</strong></span></div><br/>
+              <div><span> Clima : <strong>{statusProject?.clima}</strong> </span></div><br/>
+              <div><span> Segurança Urbana : <strong>{statusProject?.seguranca}</strong></span></div><br/>
+              <small>{moment(statusProject?.createdDate).format('hh:mm D, MMM, YYYY')}</small><br/>
             </ProjectMonitor>
 
         </PageSection>

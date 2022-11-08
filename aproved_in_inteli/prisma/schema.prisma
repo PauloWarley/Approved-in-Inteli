@@ -20,6 +20,16 @@ model bets {
   createdDate DateTime? @db.DateTime(0)
 }
 
+model project_status {
+  id           Int       @id @default(autoincrement())
+  vagas        Int
+  inscricoes   Int
+  saude        Int
+  clima        Int
+  seguranca    Int
+  createdDate DateTime? @db.DateTime(0)
+}
+
 model couriers {
   id           Int      @id @default(autoincrement())
   name         String
