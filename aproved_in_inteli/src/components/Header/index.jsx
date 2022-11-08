@@ -8,6 +8,7 @@ function Header() {
     return (
         <PageHeader>
             <title>Inteli Me Responde</title>
+            <meta name="description" content="site feito por vestibulando para outros vestibulandos que queiram informações do processo seletivo."/>
             <p>inteli</p>
             <NavBar>
                 <ul>
