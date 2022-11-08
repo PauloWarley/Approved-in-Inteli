@@ -1,18 +1,13 @@
 import React, { useState } from "react";
-import {ProjectMonitor, ContentContainer, FormComponent, InputGroup, LineWrapper, PageSection, SliderText, SmallText, SubmitButton, TextComponent, TextInput, WelcomeText } from "./style";
+import { ContentContainer, FormComponent, InputGroup, LineWrapper, PageSection, SliderText, SmallText, SubmitButton, TextComponent, TextInput, WelcomeText } from "./style";
 // import MyIcon from "./../../images/firstsection.svg";
 import { AiOutlineSend, AiOutlineArrowDown } from "react-icons/ai";
 import axios from "axios";
-import { useEffect } from "react";
 
-function FirstSection() {
+function ProjectMonitor() {
 
     const [number, setNumber] = useState('');
     const [modal, setModal] = useState('')
-
-    function getProjectMonitor(){
-
-    }
 
     function modalConclusion(id){
       var texto = [
@@ -69,10 +64,6 @@ function FirstSection() {
   
     }
 
-    useEffect(() => {
-      getProjectMonitor()
-    })
-
     return (
         <PageSection id="home">
             <ContentContainer>
@@ -102,32 +93,8 @@ function FirstSection() {
                 </LineWrapper>
             </ContentContainer>
             {modal}
-            <ProjectMonitor>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Vagas</th>
-                    <th>Incrições</th>
-                    <th>Restante</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>390</td>
-                    <td>161</td>
-                    <td>229</td>
-                  </tr>
-                </tbody>
-              </table> 
-              <br/>
-              <div><span>Saúde & Bem-Estar : <strong>72</strong></span></div><br/>
-              <div><span> Clima : <strong>54</strong> </span></div><br/>
-              <div><span> Segurança Urbana : <strong>35</strong></span></div><br/>
-              <small>Mon Nov  7 21:41:05 2022</small><br/>
-            </ProjectMonitor>
-
         </PageSection>
     );
 }
 
-export default FirstSection;
+export default ProjectMonitor;

@@ -14,7 +14,7 @@ export const ContentWrapper = styled.div`
 
 export const LineWrapper = styled.div`
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 `
 
 export const ImgContainer = styled.div`
@@ -26,6 +26,7 @@ export const ImgContainer = styled.div`
 
     img{
         width: 125%;
+        height: 25%;
     }
 `;
 
@@ -90,5 +91,6 @@ export const Mockup = styled.div`
 
     img{
         width: 80%;
+        height: 80%;
     }
 `

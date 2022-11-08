@@ -58,6 +58,7 @@ export const PersonContainer = styled.div`
 
     img{
         width: 40%;
+        height: 40%;
     }
 `;
 

@@ -4,6 +4,7 @@ import SecondSection from '../../components/SecondSection'
 import ThirdSection from '../../components/ThirdSection'
 import FourthSection from '../../components/FourthSection'
 import SnakeGame from '../../components/SnakeGame'
+import ProjectMonitor from '../../components/ProjectMonitor/index.jsx';
 
 const Home = () => {
   return (

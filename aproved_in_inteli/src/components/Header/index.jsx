@@ -13,7 +13,7 @@ function Header() {
                 <ul>
                     <li><a href="#home">home</a></li>
                     <li><a href="#quem-somos">quem somos</a></li>
-                    <li><a href="#quem-somos">apostas</a></li>
+                    <li><a href="#game_view">snake</a></li>
                 </ul>
             </NavBar>
         </PageHeader>

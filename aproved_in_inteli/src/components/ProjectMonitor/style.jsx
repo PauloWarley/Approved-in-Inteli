@@ -4,39 +4,8 @@ export const PageSection = styled.section`
     background-color: #f4f4f4;
     width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: center;
 `;
-
-export const ProjectMonitor = styled.div`
-    background-color:  #ff4645;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    z-index: 5;
-    position: absolute;
-    margin-top: 1%;
-    right: 1%;
-    display: flex;
-    padding-left: 10px;
-    flex-direction: column;
-
-    strong{
-        font-weight: 800;
-        font-size: 20px;
-    }
-    td{
-        font-size: 30px;
-        text-align: center;
-        padding: 0 5px;
-    }
-
-    div{
-        position: relative;
-        width: 100%;
-        text-align: left;
-    }
-`
 
 export const ContentContainer = styled.div`
     width: 80%;

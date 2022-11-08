@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image"
 import { PageSection, PinkCard, PurpleCard, WarningComponent } from "./style";
 import { CiWarning } from "react-icons/ci";
+import image_curver_arrow from "../../../public/images/curver-arrow.png";
 
 function FourthSection(){
     return(
@@ -9,10 +10,10 @@ function FourthSection(){
             <PinkCard>
                 <p>E aí, gostou? Se sim, quer nos ajudar a melhorar com sua opinião?</p>
             </PinkCard>
-            <Image alt="curver-arrow" src="/images/curver-arrow.png" />
+            <Image alt="curver-arrow" layout="fill" src={image_curver_arrow} />
             <PurpleCard>
                 <p>
-                    Só clicar <a href="#">aqui</a> que você será redirecionado ao nosso forms. Gratidão {":)"}
+                    Só clicar <a target="_blank" rel="noopener noreferrer" href="https://forms.gle/3fYuLesZi3rRkCmZ6">aqui</a> que você será redirecionado ao nosso forms. Gratidão {":)"}
                 </p>
             </PurpleCard>
             <WarningComponent>

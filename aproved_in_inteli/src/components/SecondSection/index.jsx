@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import CountUp from "react-countup";
+import VisibilitySensor from 'react-visibility-sensor';
 import { ContentWrapper, ImgContainer, LineWrapper, MainText, PageSection, TextComponent, XComponent, Counter, CounterInfo, Mockup } from "./style";
 import Image from "next/image";
+import image_rounded_arabesque from "../../../public/images/rounded-arabesque.png";
+import image_x from "../../../public/images/x.png"
+import mockup from "../../../public/images/mockup.png"
 
 function SecondSection() {
 
@@ -9,7 +13,7 @@ function SecondSection() {
         <PageSection>
             <ContentWrapper>
                 <ImgContainer>
-                    <Image alt="rounded-arabesque" src="/images/rounded-arabesque.png" />
+                    <Image alt="rounded-arabesque" src={image_rounded_arabesque} />
                 </ImgContainer>
                 <LineWrapper>
                     <MainText>
@@ -21,7 +25,7 @@ function SecondSection() {
                     </TextComponent>
                 </LineWrapper>
                 <XComponent>
-                    <Image alt="x" src="/images/x.png" />
+                    <Image alt="x" src={image_x} />
                 </XComponent>
                 <LineWrapper>
                     <TextComponent>
@@ -35,8 +39,14 @@ function SecondSection() {
                                 <CountUp
                                     start={0}
                                     end={13}
-                                    duration={1}
-                                />
+                                    duration={2}
+                                >
+                                    {({ countUpRef, start }) => (
+                                    <VisibilitySensor onChange={start} delayedCall>
+                                        <span ref={countUpRef} />
+                                    </VisibilitySensor>
+                                )}
+                                </CountUp>
                             </p>
                             <span>Usuários cadastrados</span>
                         </CounterInfo>
@@ -46,14 +56,20 @@ function SecondSection() {
                                 start={0}
                                 end={8}
                                 duration={1}
-                                />
+                                >
+                                    {({ countUpRef, start }) => (
+                                        <VisibilitySensor onChange={start} delayedCall>
+                                            <span ref={countUpRef} />
+                                        </VisibilitySensor>
+                                    )}
+                                </CountUp>
                             </p>
                             <span>Horas de trabalho</span>
                         </CounterInfo>
                     </Counter>
                 </LineWrapper>
                 <Mockup>
-                    <Image alt="mockup" src="/images/mockup.png" />
+                    <Image alt="mockup" src={mockup} />
                 </Mockup>
             </ContentWrapper>
         </PageSection>
