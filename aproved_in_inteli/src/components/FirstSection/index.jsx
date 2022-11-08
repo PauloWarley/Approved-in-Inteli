@@ -116,9 +116,9 @@ function FirstSection() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>390</td>
-                    <td>161</td>
-                    <td>229</td>
+                    <td>{statusProject?.vagas}</td>
+                    <td>{statusProject?.inscricoes}</td>
+                    <td>{statusProject?.vagas - statusProject?.inscricoes}</td>
                   </tr>
                 </tbody>
               </table> 

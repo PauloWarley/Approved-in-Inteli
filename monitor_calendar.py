@@ -1,5 +1,7 @@
 import requests, json, time
 
+from whatsapp_bot.database import PostProjectStatus
+
 payload={}
 headers = {}
 
@@ -29,6 +31,15 @@ def __main__():
     seguranca_qntd = get_quantity(url, "Segurança Urbana")["sum"]
 
     sum_total = saude_qntd + clima_qntd +seguranca_qntd
+    
+    PostProjectStatus().post( data = {
+            "vagas": 390,
+            "inscricoes": 390 - sum_total,
+            "saude": 130-saude_qntd,
+            "clima": 130-clima_qntd,
+            "seguranca": 130-seguranca_qntd
+        }
+    )
 
     print(f"""
 {time.ctime()}
